@@ -1,0 +1,296 @@
+
+<!DOCTYPE html>
+
+<title>JS-CAD</title>
+
+<head profile="http://www.w3.org/2005/10/profile"></head>
+<link rel="icon" 
+      type="image/ico" 
+      href="favicon.ico" />
+<script src="source/elements.js"></script>
+<script src="source/declarations.js"></script>
+
+<!--<script src="timing.js"></script>
+<script src="jquery-latest.js"></script>
+<script src="jquery-ui.js"></script>
+<link rel="stylesheet" href="vader.css" type="text/css" />
+-->
+
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
+<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/themes/vader/jquery-ui.css" type="text/css" />
+
+
+<script src="source/contentLoader.js"></script>
+
+<script src="source/camera.js"></script>
+
+<script src="source/keyboardController.js"></script>
+
+<script src="source/mouseController.js"></script>
+
+<script src="source/scene.js"></script>
+
+<script src="source/snapping.js"></script>
+
+<script src="source/Tool_DrawPoint.js"></script>
+
+<script src="source/Tool_DrawLine.js"></script>
+
+<script src="source/Tool_DrawCircle.js"></script>
+
+<script src="source/Tool_DrawArc.js"></script>
+
+<script src="source/Tool_Measure.js"></script>
+
+<!--<script src="snapping.js"></script>
+
+<script src="trim.js"></script>
+
+<script src="chamfer.js"></script>
+
+<script src="fillet.js"></script>-->
+
+<script src="source/display.js"></script>
+
+<!--<script src="dialogs.js"></script>-->
+
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+</head>
+<body bgcolor=#404040 onresize="ResizeDisplay();"> 
+<!--
+<img src="newFileButton.gif"  onclick="NewFile()" onMouseOver="SetTooltip('Create New File');"></img>
+
+<img src="pix.gif" width='1' height='64'></img>
+
+<img src="pointButton.gif"  onclick="SelectTool(1)" onMouseOver="SetTooltip('Create Points');"></img>
+<img src="lineButton.gif"  onclick="SelectTool(2)" onMouseOver="SetTooltip('Draw Lines (ctrl breaks line)');"></img>
+<img src="rayButton.gif"  onclick="SelectTool(8)" onMouseOver="SetTooltip('Draw Rays');"></img>
+<img src="infLineButton.gif"  onclick="SelectTool(7)" onMouseOver="SetTooltip('Draw Infinite Lines');"></img>
+<img src="squareButton.gif"  onclick="SelectTool(5)" onMouseOver="SetTooltip('Draw Squares');"></img>
+<img src="circleButton.gif"  onclick="SelectTool(3)" onMouseOver="SetTooltip('Draw Circles');"></img>
+<img src="arcButton.gif"  onclick="SelectTool(6)" onMouseOver="SetTooltip('Draw Arc');"></img>
+
+<img src="pix.gif" width='1' height='64'></img>
+
+<img src="trimButton.gif"  onclick="SelectTool(10)" onMouseOver="SetTooltip('Trim (keep)');"></img>
+<img src="measureButton.gif"  onclick="SelectTool(11)" onMouseOver="SetTooltip('Measure/Query');"></img>
+<img src="deleteButton.gif"  onclick="mode=4"  onMouseOver="SetTooltip('Delete');"></img>
+
+<img src="pix.gif" width='1' height='64'></img>
+
+<img src="gridToggleButton.gif"  onclick="showGrid=!showGrid; SetTooltip('Toggle Grid Visibility (' + showGrid + ')');"  
+	onMouseOver="SetTooltip('Toggle Grid Visibility (' + showGrid + ')');"></img>
+<img src="gridSnapButton.gif"  onclick="snapToGrid=!snapToGrid; SetTooltip('Toggle Grid Snap (' + snapToGrid + ')');"
+	onMouseOver="SetTooltip('Toggle Grid Snap (' + snapToGrid + ')');"></img>
+<img src="gridSettingsButton.gif"  onclick="OpenGridSettingsDialog();" onMouseOver="SetTooltip('Grid Settings [not yet implimented]');"></img>
+
+</br>
+--->
+
+
+
+<ul class="menu">
+ 
+	<li><a><img src="images/newFileA.gif"  onclick="NewFile()" onMouseOver="SetTooltip('Create New File');"></img></a></li>
+	<li><a><img src="images/pointA.gif"  onclick="Select_Tool_DrawPoint()" onMouseOver="SetTooltip('Create Points');"></img></a></li>
+	<li><a><img src="images/lineA.gif"  onclick="Select_Tool_DrawLine()" onMouseOver="SetTooltip('Draw Lines (ctrl breaks line)');"></img></a>
+ 
+		<ul id="subMenu">
+			<li><a><img src="images/rayA.gif"  onclick="Select_Tool_DrawRay()" onMouseOver="SetTooltip('Draw Rays');"></img></a></li>
+			<li><a><img src="images/infLineA.gif"  onclick="Select_Tool_DrawInfiniteLine()" onMouseOver="SetTooltip('Draw Infinite Lines');"></img></a></li>
+			<li><a><img src="images/parLineA.gif"  onclick="SelectTool(9)" onMouseOver="SetTooltip('Draw Parallel Lines');"></img></a></li>
+			<li><a><img src="images/squareA.gif"  onclick="SelectTool(5)" onMouseOver="SetTooltip('Draw Squares');"></img></a></li>
+		</ul>
+ 
+	</li>
+	
+	<li><a><img src="images/circleA.gif"  onclick="SelectTool_DrawCircleCenterRadius()" onMouseOver="SetTooltip('Draw Circles');"></img></a>
+ 
+		<ul id="subMenu">
+			<li><a><img src="images/arcA.gif"  onclick="SelectTool_DrawArcCenterTwoPt()" onMouseOver="SetTooltip('Draw Arc');"></img></a></li>
+		</ul>
+ 
+	</li>
+	
+	<li><a><img src="images/trimA.gif"  onclick="SelectTool(10)" onMouseOver="SetTooltip('Trim (keep)');"></img></a>
+		<ul id="subMenu">
+			<li><a><img src="images/measureA.gif"  onclick="Select_Tool_Measure()" onMouseOver="SetTooltip('Measure/Query');"></img></a></li>
+			<li><a><img src="images/chamferA.gif"  onclick="SelectTool(12)" onMouseOver="SetTooltip('Chamfer');"></img></a></li>
+			<li><a><img src="images/filletA.gif"  onclick="SelectTool(13)" onMouseOver="SetTooltip('Fillet');"></img></a></li>
+		</ul>
+	</li>
+	
+	<li><a><img src="images/delA.gif"  onclick="mode=4"  onMouseOver="SetTooltip('Delete');"></img></a></li>
+	
+	<li><a><img src="images/gridToggleA.gif"  onclick="showGrid=!showGrid; SetTooltip('Toggle Grid Visibility (' + showGrid + ')');"  
+	onMouseOver="SetTooltip('Toggle Grid Visibility (' + showGrid + ')');"></img></a>
+ 
+		<ul id="subMenu">
+			<li><a><img src="images/gridSnapA.gif"  onclick="snapToGrid=!snapToGrid; SetTooltip('Toggle Grid Snap (' + snapToGrid + ')');"
+				onMouseOver="SetTooltip('Toggle Grid Snap (' + snapToGrid + ')');"></img></a></li>
+			<li><a><img src="images/gridSettingsA.gif"  onclick="OpenGridSettingsDialog();" onMouseOver="SetTooltip('Grid Settings [not yet implimented]');"></img></a></li>
+		</ul>
+ 
+	</li>
+	
+	<li><a><img src="images/helpA.gif"  onclick="SetHelpVisibility(!showHelp)" onMouseOver="SetTooltip('Show/Hide Help bar');"></img></a></li> 
+</ul>
+
+<!--<div id="helpBar">
+	<table border="0">
+		<div id = "helpTitle">JS-CAD Help<div/>
+	</table>
+</div>-->
+
+<style type="text/css">
+
+img {
+	user-drag: none;
+	-moz-user-select: none;
+	-webkit-user-drag: none;
+}
+
+#helpBar{
+	display: block;
+	margin: 0px;
+	padding: 4px;
+	border: 1px solid black;
+	border-radius: 4px;
+	border-top-right-radius: 0px;
+	border-bottom-right-radius: 0px;
+	background: #404040;
+	position:absolute;
+	right:0px;
+	top:80px;
+	width: 0px;
+	height: 400px;
+	opacity: 0;
+	resize: both;
+	overflow:auto;
+}
+
+#helpTitle{
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 20px;
+	float: right;
+	color: white;
+}
+
+.menu,
+.menu ul,
+.menu li,
+.menu a {
+	margin: 0;
+	padding: 0;
+	border: none;
+	outline: none;
+}
+ 
+.menu {
+	margin: 0;
+	padding: 0;
+	width: 64;
+	height: 64;
+}
+
+.menu li{
+	margin: 0;
+	padding: 0;
+	position: relative;
+	list-style: none;
+	float: left;
+	display: block;
+	height: 72px;
+}
+
+.menu a img{
+	margin: 0;
+	padding: 0;
+	display: block;
+}
+ 
+.menu li a{
+	margin: 0;
+	padding: 0;
+	position: relative;
+	list-style: none;
+	float: left;
+	display: block;
+	width: 64px;
+	height: 64px;
+	border: 1px solid black;
+	border-left: none;
+	border-radius: 0px;
+}
+
+.menu>li:first-child a{border-left: 1px solid black; border-bottom-left-radius: 5px; border-top-left-radius: 5px;}
+.menu>li:last-child a{ border-bottom-right-radius: 5px; border-top-right-radius: 5px; }
+
+
+a:hover{ background: #4090D0;}
+
+.menu li:hover > ul { opacity: 1; }
+
+.menu ul {
+    position: absolute;
+    top: 65px;
+    left: 0;
+ 
+    opacity: 0;
+    
+}
+
+.menu ul li{
+	position: relative;
+	display: block;
+	float: top;
+	width: 64px;
+	height: 0;
+	left: -1px;
+	overflow: hidden;
+}
+
+#subMenu>li a{
+	border-radius: 0px;
+	overflow: hidden;
+	background: #404040;
+	border: 1px solid black;
+}
+
+.menu li:hover > ul li {
+    height: 64px;
+    overflow: visible;
+    padding: 0;
+}
+
+#subMenu>li:hover a{ background: #4090D0;}
+
+#subMenu>li:first-child a{border-top: 1px solid black;}
+#subMenu>li:last-child a{ border-bottom-right-radius: 5px; border-bottom-left-radius: 5px;}
+
+</style>
+
+<div id="container" >	
+	<canvas id="CADDisplay" width="800" height="600" onMouseOver="OnCanvasOver()" onMouseOut="OnCanvasLeave()" 
+		onContextMenu="javascript: return false;" tabindex="1" onload="ResizeDisplay();" onblur="if(camMoving){StopCamMovement();}">If you are seeing this, you are using a browser that does not support HTML5.  Internet Explorer in particular has issues with HTML5 compliance.  I suggest upgrading to Google Chrome or Mozilla Firefox</canvas>
+</div>
+
+<div id="fileSaveNoCancel" title="Save current file?">
+    <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 2px 10px 0;"></span>You are about to create a new file.  Save the current one?</p>
+</div>
+
+<div id="gridSettingsDialog" title="Change Grid Spacing">
+    <p><span style="float: left; margin: 0 2px 10px 0;"></span>Grid Spacing: 
+    
+    <input type="number" id="gridSpacingInput" value="100" min="1" max="1000" step="any"/>
+    
+    </p>
+</div>
+
+</body>
+</html>
